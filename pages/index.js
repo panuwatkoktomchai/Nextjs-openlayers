@@ -4,5 +4,9 @@ const Index = ({ t }) => (
       <p>Hello Next.js => { t('test') }</p>
     </div>
   );
+
+  Index.getInitialProps = async () => ({
+    namespacesRequired: ['common'],
+  })
   
   export default withTranslation('common')(Index);
