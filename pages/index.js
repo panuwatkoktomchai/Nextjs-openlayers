@@ -1,7 +1,8 @@
-const Index = () => (
+import {withTranslation } from '../i18n'
+const Index = ({ t }) => (
     <div>
-      <p>Hello Next.js</p>
+      <p>Hello Next.js => { t('test') }</p>
     </div>
   );
   
-  export default Index;
+  export default withTranslation('common')(Index);
