@@ -1,0 +1,75 @@
+.landing {
+  .example-custom-modal-styling-title {
+    width: 100%;
+  }
+  .modal {
+    &-content {
+      background: transparent;
+      border: none;
+    }
+    &-header {
+        border: none;
+        .modal-title {
+            width: 100%;
+            align-items: center;
+        }
+
+        .title {
+            color: $secondary;
+            text-align: center;
+        }
+
+        .close {
+          position: absolute;
+          right: 0;
+          color: $white;
+          text-shadow: unset;
+          opacity: 1;
+          font-size: 2.5em;
+        }
+    }
+
+
+    &-body {
+        color: $white;
+        background-color: transparent;
+        
+        .landing-item {
+          position: relative;
+          background-color: rgba($dark, 0.5);
+          margin-top: 5rem;
+          padding: 1.5rem;
+          border-radius: 0.5rem;
+        }
+
+        .content-item {
+          margin-top: 1rem;
+        }
+        
+        .circle-icon {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: $landing-icon-size;
+            height: $landing-icon-size;
+            background-color: $primary;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 100%;
+
+            &:before {
+              padding-top: 3rem;
+              content: '';
+              position: absolute;
+              border-left: dashed 4px white;
+              bottom: $landing-icon-size;
+            }
+        }
+    }
+    &-footer {
+        border: none;
+    }
+  }
+}
