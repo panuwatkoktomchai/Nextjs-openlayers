@@ -1,4 +1,4 @@
-const khonkean = require('../../public/static/data/thailand.json')
+const khonkean = require('~/public/static/data/Khonkean.json')
 const GeoJSON = require('ol/format/GeoJSON').default
 const VectorLayer = require('ol/layer/Vector').default
 const VectorSource = require('ol/source/Vector').default
@@ -15,16 +15,18 @@ var geojsonObject = {
     crs: {
         type: 'name',
         properties: {
-            name: 'EPSG:4326'
+            name: 'EPSG:4326',
+            detail: 'test add detail for layer'
         }
     },
     features: [
         {
             type: 'Feature',
+            id: 'khonkean',
+            properties: khonkean.properties,
             geometry: {
                 type: 'Polygon',
                 coordinates: khonkean.coordinates,
-                properties: khonkean.properties
             }
         }
     ]
@@ -51,7 +53,6 @@ var styleFunction = function(feature) {
  */
 var Features = (new GeoJSON()).readFeatures(geojsonObject)
 Features.forEach(function(source) {
-    console.log(source)
     let geometry = source.getGeometry(),
     coords = geometry.getCoordinates();
     geometry.setCoordinates(transformPolyCoords(coords));

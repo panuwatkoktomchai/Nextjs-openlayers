@@ -1,5 +1,5 @@
 const MousePosition = require('./MousePosition')
-
-module.exports = {
-    MousePosition
-}
+const defaultControls = require('./DefaultControls')
+module.exports = defaultControls.extend([
+    // MousePosition
+])

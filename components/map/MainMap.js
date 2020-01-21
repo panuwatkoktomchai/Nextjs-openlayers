@@ -11,31 +11,55 @@ export default class MainMap extends Component {
     componentDidMount() {
         const Map = require('ol/Map').default
         const View = require('ol/View').default
-        const Proj = require('ol/proj')
-        const Layers = require('./Layer')
-        const Controls = require('./controls')
-        const defaultControls = require('ol/control').defaults
-        const ProvinceSource = require('./VectorSource')
-        console.log(Controls)
-        // MultiPolygon
+        const Layers = require('./layers')
+        const Controls = require('./controls/')
+
+        const Style = require('ol/style/Style').default
+        const Stroke = require('ol/style/Stroke').default
+        const Fill = require('ol/style/Fill').default
+
         const map = new Map({
             target: this.MapRef.current,
-            layers: [
-                Layers,
-                ProvinceSource
-            ],
+            layers: Layers,
             view: new View({
                 center: [11436235.978741916, 1853280.3773635803],
-                // center: Proj.transform([103.10125732421892,16.911651611328125], 'EPSG:4326', 'EPSG:3857'),
                 zoom: 8,
             }),
-            controls: defaultControls().extend([
-                Controls.MousePosition
-            ])
+            controls: Controls,
         })
 
-        map.on('click', (e) => {
-            console.log('Click event')
+        var highlightStyle = new Style({
+            fill: new Fill({
+              color: 'rgba(255,255,255,0.1)'
+            }),
+            stroke: new Stroke({
+              color: '#3399CC',
+              width: 3
+            })
+        });
+        var selected = null
+        var hover = 0
+        map.on('pointermove', (e) => {
+            if (selected !== null) {
+                selected.setStyle(undefined);
+                selected = null;
+                hover = 0
+                e.map.getTargetElement().style.cursor = ''
+            }else {
+                hover = 1
+            }
+            map.forEachFeatureAtPixel(e.pixel, (f) => {
+                selected = f
+                e.map.getTargetElement().style.cursor = 'pointer'
+                f.setStyle(highlightStyle)
+                return true
+            })
+            if (selected) {
+                if (hover === 1) {
+                    hover++
+                    console.log(selected.get('province'))
+                }
+            }
         })
     }
     
